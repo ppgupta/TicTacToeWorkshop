@@ -44,11 +44,21 @@ public class TicTacToeGame {
 		this.setPlayerChar(sc.next().charAt(0));
 		this.setComputerChar(this.playerChar);
 	}
-	
+	//UC3
+	private void diplayBoard() {
+		for(int row = 0;row<3;row++) {
+			for(int col = row*3+1;col<row*3+4;col++) {
+				System.out.print(board[col]);
+			}
+			System.out.println(" ");
+		}
+	}
 	public static void main(String[] args) {
 		System.out.println("Welcome to Tic Tac Toe Game");
 		TicTacToeGame ticTacToeGame = new TicTacToeGame();
 		char[] ticTacToeBoard = ticTacToeGame.assignEmptySpace();
 		ticTacToeGame.ChoseFromXandO();
+		ticTacToeGame.diplayBoard();
+
 	}
 }
