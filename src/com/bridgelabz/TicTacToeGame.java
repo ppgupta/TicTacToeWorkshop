@@ -247,11 +247,26 @@ public class TicTacToeGame {
 		
 	public static void main(String[] args) {
 		System.out.println("Welcome to Tic Tac Toe Game");
+		while(true) {
 		TicTacToeGame ticTacToeGame = new TicTacToeGame();
 		char[] ticTacToeBoard = ticTacToeGame.assignEmptySpace();
 		ticTacToeGame.ChoseFromXandO();
 		Player player = ticTacToeGame.tossToDecidePlayer();
 		ticTacToeGame.determineNextMove(player);
         ticTacToeGame.abilityToMakeMoveForComputer8();
+        System.out.println("Do you want to play another game" + "\n" + "Enter 1 to play game or 2 to quit");
+		Scanner sc = new Scanner(System.in);
+		int input1 = sc.nextInt();
+		if(input1 == 1) {
+			continue;
+		}
+		else if(input1 == 2) {
+			System.out.println("It was fun having you");
+			break;
+		}
+		else {
+			System.out.println("please enter a valid  input");
+		}
+	}
 	}
 }
