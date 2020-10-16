@@ -1,5 +1,6 @@
 package com.bridgelabz;
 
+import java.util.Random;
 import java.util.Scanner;
 
 public class TicTacToeGame {
@@ -83,6 +84,26 @@ public class TicTacToeGame {
 				}
 			}
 		}
+		
+	//UC6
+		private void tossToDecidePlayer() {
+			
+			if(this.returnHeadOrTail().equalsIgnoreCase("head")) {
+				System.out.println("Player plays first");
+			}
+			else {
+				System.out.println("Computer plays first");
+			}
+		}
+
+		private String returnHeadOrTail() {
+			String checkForHeadOrTail;
+			int toss = new Random().nextInt(2);
+			if(toss==0)
+				checkForHeadOrTail = "Head";
+			else checkForHeadOrTail = "Tail";
+			return checkForHeadOrTail;
+		}
 	public static void main(String[] args) {
 		System.out.println("Welcome to Tic Tac Toe Game");
 		TicTacToeGame ticTacToeGame = new TicTacToeGame();
@@ -91,5 +112,7 @@ public class TicTacToeGame {
 		ticTacToeGame.displayBoard();
 		int index = ticTacToeGame.abilityToMakeMoveForPlayer();
 		ticTacToeGame.displayBoard();
+		ticTacToeGame.tossToDecidePlayer();
+
 	}
 }
