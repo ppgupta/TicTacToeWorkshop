@@ -53,12 +53,32 @@ public class TicTacToeGame {
 			System.out.println(" ");
 		}
 	}
+	
+	//UC4
+	private int abilityToMakeMoveForPlayer() {
+		System.out.println("Enter the position where you want to add : " + playerChar);
+		Scanner sc = new Scanner(System.in);
+		int index = sc.nextInt();
+		if(index<1&&index>10) {
+			System.out.println("Invalid position");
+			return -1;
+		}
+		if (board[index] == ' ') {
+			board[index] = playerChar;
+			return index;
+		}
+		else {
+			System.out.println("This position is already filled");
+			return 0;
+		}
+	}
 	public static void main(String[] args) {
 		System.out.println("Welcome to Tic Tac Toe Game");
 		TicTacToeGame ticTacToeGame = new TicTacToeGame();
 		char[] ticTacToeBoard = ticTacToeGame.assignEmptySpace();
 		ticTacToeGame.ChoseFromXandO();
 		ticTacToeGame.diplayBoard();
-
+		int index = ticTacToeGame.abilityToMakeMoveForPlayer();
+		ticTacToeGame.diplayBoard();
 	}
 }
