@@ -275,6 +275,6 @@ public class TicTacToeGame {
 		ticTacToeGame.tossToDecidePlayer();
 		Player player = ticTacToeGame.tossToDecidePlayer();
 		ticTacToeGame.determineNextMove(player);
-
+        ticTacToeGame.abilityToMakeMoveForComputer8();
 	}
 }
