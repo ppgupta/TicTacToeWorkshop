@@ -8,6 +8,9 @@ public class TicTacToeGame {
 	private char playerChar;
 	private char computerChar;
 	
+	public static enum Player {
+		USER, COMPUTER
+	};
 	
 	public char getPlayerChar() {
 		return playerChar;
@@ -86,16 +89,19 @@ public class TicTacToeGame {
 		}
 		
 	//UC6
-		private void tossToDecidePlayer() {
+		private Player tossToDecidePlayer() {
 			
 			if(this.returnHeadOrTail().equalsIgnoreCase("head")) {
 				System.out.println("Player plays first");
+				return Player.USER;
+
 			}
 			else {
 				System.out.println("Computer plays first");
+				return Player.COMPUTER;
+
 			}
 		}
-
 		private String returnHeadOrTail() {
 			String checkForHeadOrTail;
 			int toss = new Random().nextInt(2);
@@ -104,15 +110,65 @@ public class TicTacToeGame {
 			else checkForHeadOrTail = "Tail";
 			return checkForHeadOrTail;
 		}
+    
+		//UC7
+		private void determineNextMove(Player player) {
+			if (player.USER == player) {
+				displayBoard();
+				abilityToMakeMoveForPlayer();
+				determineNextMove(player.COMPUTER);
+				if (checkifPlayerWon()) {
+					System.out.println("Player won");
+					return;
+				}
+			} else {
+				abilityToMakeMoveForComputer();
+				if (checkifPlayerWon()) {
+					System.out.println("Player won");
+					return;
+				}
+				determineNextMove(player.USER);
+			}
+		}
+
+		private boolean checkifPlayerWon() {
+			for(int i = 1 ;i<=7;i=i+3) {
+				if(board[i]==playerChar&&board[i+1]==playerChar&&board[i]==playerChar) {
+					return true;
+				}
+			}
+			for(int i = 1; i<=3 ;i++) {
+				if(board[i]==playerChar&&board[i+3]==playerChar&&board[i+6]==playerChar) {
+					return true;
+				}
+			}
+			return (board[1]==playerChar&&board[5]==playerChar&&board[9]==playerChar)||(board[3]==playerChar&&board[5]==playerChar&&board[7]==playerChar);
+		}
+
+		private void abilityToMakeMoveForComputer() {
+			while (true) {
+				int index = new Random().nextInt(10);
+				if (index < 1) {
+					continue;
+				}
+				if (board[index] == ' ') {
+					board[index] = computerChar;
+					return;
+				} else {
+					continue;
+				}
+			}
+		}
+		
 	public static void main(String[] args) {
 		System.out.println("Welcome to Tic Tac Toe Game");
 		TicTacToeGame ticTacToeGame = new TicTacToeGame();
 		char[] ticTacToeBoard = ticTacToeGame.assignEmptySpace();
 		ticTacToeGame.ChoseFromXandO();
 		ticTacToeGame.displayBoard();
-		int index = ticTacToeGame.abilityToMakeMoveForPlayer();
-		ticTacToeGame.displayBoard();
 		ticTacToeGame.tossToDecidePlayer();
+		Player player = ticTacToeGame.tossToDecidePlayer();
+		ticTacToeGame.determineNextMove(player);
 
 	}
 }
