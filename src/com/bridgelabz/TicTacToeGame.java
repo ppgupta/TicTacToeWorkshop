@@ -235,6 +235,13 @@ public class TicTacToeGame {
 				board[5]=computerChar;
 				return;
 			}
+			//choosing rest
+			for(int i =2 ; i<=8; i=i+2) {
+				if(board[i]==' ') {
+					board[i]=computerChar;
+					return;
+				}
+			}
 
 		}
 		
