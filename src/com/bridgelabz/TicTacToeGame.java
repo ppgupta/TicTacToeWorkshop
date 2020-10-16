@@ -45,7 +45,7 @@ public class TicTacToeGame {
 		this.setComputerChar(this.playerChar);
 	}
 	//UC3
-	private void diplayBoard() {
+	private void displayBoard() {
 		for(int row = 0;row<3;row++) {
 			for(int col = row*3+1;col<row*3+4;col++) {
 				System.out.print(board[col]);
@@ -72,13 +72,24 @@ public class TicTacToeGame {
 			return 0;
 		}
 	}
+	// UC5
+		public void checkFreeSpace(Scanner input) {
+			while (true) {
+				for (int position = 0; position < 10; position++) {
+					if (board[position] == ' ') {
+						abilityToMakeMoveForPlayer();
+						displayBoard();
+					}
+				}
+			}
+		}
 	public static void main(String[] args) {
 		System.out.println("Welcome to Tic Tac Toe Game");
 		TicTacToeGame ticTacToeGame = new TicTacToeGame();
 		char[] ticTacToeBoard = ticTacToeGame.assignEmptySpace();
 		ticTacToeGame.ChoseFromXandO();
-		ticTacToeGame.diplayBoard();
+		ticTacToeGame.displayBoard();
 		int index = ticTacToeGame.abilityToMakeMoveForPlayer();
-		ticTacToeGame.diplayBoard();
+		ticTacToeGame.displayBoard();
 	}
 }
