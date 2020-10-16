@@ -7,7 +7,8 @@ public class TicTacToeGame {
 	char []board;
 	private char playerChar;
 	private char computerChar;
-	
+	private int count = 0;
+
 	public static enum Player {
 		USER, COMPUTER
 	};
@@ -113,24 +114,60 @@ public class TicTacToeGame {
     
 		//UC7
 		private void determineNextMove(Player player) {
+			count ++;
 			if (player.USER == player) {
 				displayBoard();
 				abilityToMakeMoveForPlayer();
+				if (checkifPlayerWon()) {
+					System.out.println("Player won");
+					displayBoard();
+					return;
+				}
+				if (checkifComputerWon()) {
+					System.out.println("Computer won");
+					displayBoard();
+					return;
+				}
+				if(count==9) {
+					System.out.println("It resulted in a draw");
+					displayBoard();
+					return;
+				}
 				determineNextMove(player.COMPUTER);
+			} else {
+				abilityToMakeMoveForComputer8();
+				if (checkifComputerWon()) {
+					System.out.println("Computer won");
+					displayBoard();
+					return;
+				}
 				if (checkifPlayerWon()) {
 					System.out.println("Player won");
 					return;
 				}
-			} else {
-				abilityToMakeMoveForComputer();
-				if (checkifPlayerWon()) {
-					System.out.println("Player won");
+				if(count==9) {
+					System.out.println("It resulted in a draw");
+					displayBoard();
 					return;
 				}
 				determineNextMove(player.USER);
 			}
 		}
-
+		private boolean checkifComputerWon() {
+			for (int i = 1; i <= 7; i = i + 3) {
+				if ((board[i] == computerChar) && (board[i + 1] == computerChar) && (board[i + 2] == computerChar)) {
+					return true;
+				}
+			}
+			for (int i = 1; i <= 3; i++) {
+				if ((board[i] == computerChar) && (board[i + 3] == computerChar) && (board[i + 6] == computerChar)) {
+					return true;
+				}
+			}
+			return ((board[1] == computerChar) && (board[5] == computerChar) && (board[9] == computerChar))
+					|| ((board[3] == computerChar) && (board[5] == computerChar) && (board[7] == computerChar));
+		}
+		
 		private boolean checkifPlayerWon() {
 			for(int i = 1 ;i<=7;i=i+3) {
 				if(board[i]==playerChar&&board[i+1]==playerChar&&board[i]==playerChar) {
@@ -161,106 +198,35 @@ public class TicTacToeGame {
 		}
 		private void abilityToMakeMoveForComputer8() {
 			// check in row1
-			if (board[1] != playerChar && board[2] != playerChar && board[3] != playerChar) {
-				if (board[1] == ' ')
-					board[1] = computerChar;
-				else if (board[2] == ' ')
-					board[2] = computerChar;
-				else if (board[3] == ' ')
-					board[3] = computerChar;
-				else
-					System.out.println("Player Lost");
+			for (int i = 1; i < 10; i++) {
+				if (board[i] == ' ') {
+					board[i] = computerChar;
+					if (checkifComputerWon()) {
+						return;
+					}
+					board[i] = playerChar;
+					if(checkifPlayerWon()) {
+						board[i]=computerChar;
+						return;
+					}
+					board[i]=' ';
+				}
+			}
+			
+			if(board[1]==' ') {
+				board[1]=computerChar;
 				return;
 			}
-
-			// check in row2
-			if (board[4] != playerChar && board[5] != playerChar && board[6] != playerChar) {
-				if (board[4] == ' ')
-					board[4] = computerChar;
-				else if (board[5] == ' ')
-					board[5] = computerChar;
-				else if (board[6] == ' ')
-					board[6] = computerChar;
-				else
-					System.out.println("Player Lost");
+			else if(board[3]==' ') {
+				board[3]=computerChar;
 				return;
 			}
-
-			// check in row3
-			if (board[7] != playerChar && board[8] != playerChar && board[9] != playerChar) {
-				if (board[7] == ' ')
-					board[7] = computerChar;
-				else if (board[8] == ' ')
-					board[8] = computerChar;
-				else if (board[9] == ' ')
-					board[9] = computerChar;
-				else
-					System.out.println("Player Lost");
+			else if(board[7]==' ') {
+				board[7]=computerChar;
 				return;
 			}
-
-			// check in column 1
-			if (board[1] != playerChar && board[4] != playerChar && board[7] != playerChar) {
-				if (board[1] == ' ')
-					board[1] = computerChar;
-				else if (board[4] == ' ')
-					board[4] = computerChar;
-				else if (board[7] == ' ')
-					board[7] = computerChar;
-				else
-					System.out.println("Player Lost");
-				return;
-			}
-
-			// check in column 2
-			if (board[2] != playerChar && board[5] != playerChar && board[8] != playerChar) {
-				if (board[2] == ' ')
-					board[2] = computerChar;
-				else if (board[5] == ' ')
-					board[5] = computerChar;
-				else if (board[8] == ' ')
-					board[8] = computerChar;
-				else
-					System.out.println("Player Lost");
-				return;
-			}
-
-			// check in column 3
-			if (board[3] != playerChar && board[6] != playerChar && board[9] != playerChar) {
-				if (board[3] == ' ')
-					board[3] = computerChar;
-				else if (board[6] == ' ')
-					board[6] = computerChar;
-				else if (board[9] == ' ')
-					board[9] = computerChar;
-				else
-					System.out.println("Player Lost");
-				return;
-			}
-
-			// check in diagonal 1
-			if (board[1] != playerChar && board[5] != playerChar && board[9] != playerChar) {
-				if (board[1] == ' ')
-					board[1] = computerChar;
-				else if (board[5] == ' ')
-					board[5] = computerChar;
-				else if (board[9] == ' ')
-					board[9] = computerChar;
-				else
-					System.out.println("Player Lost");
-				return;
-			}
-
-			// check in diagonal 2
-			if (board[3] != playerChar && board[5] != playerChar && board[7] != playerChar) {
-				if (board[3] == ' ')
-					board[3] = computerChar;
-				else if (board[5] == ' ')
-					board[5] = computerChar;
-				else if (board[7] == ' ')
-					board[7] = computerChar;
-				else
-					System.out.println("Player Lost");
+			else if(board[9]==' ') {
+				board[9]=computerChar;
 				return;
 			}
 
@@ -271,8 +237,6 @@ public class TicTacToeGame {
 		TicTacToeGame ticTacToeGame = new TicTacToeGame();
 		char[] ticTacToeBoard = ticTacToeGame.assignEmptySpace();
 		ticTacToeGame.ChoseFromXandO();
-		ticTacToeGame.displayBoard();
-		ticTacToeGame.tossToDecidePlayer();
 		Player player = ticTacToeGame.tossToDecidePlayer();
 		ticTacToeGame.determineNextMove(player);
         ticTacToeGame.abilityToMakeMoveForComputer8();
