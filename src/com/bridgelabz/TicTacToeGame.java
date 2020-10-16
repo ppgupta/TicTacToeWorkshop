@@ -197,7 +197,6 @@ public class TicTacToeGame {
 			}
 		}
 		private void abilityToMakeMoveForComputer8() {
-			// check in row1
 			for (int i = 1; i < 10; i++) {
 				if (board[i] == ' ') {
 					board[i] = computerChar;
@@ -213,6 +212,7 @@ public class TicTacToeGame {
 				}
 			}
 			
+			//choosing out of 4 corners
 			if(board[1]==' ') {
 				board[1]=computerChar;
 				return;
@@ -227,6 +227,12 @@ public class TicTacToeGame {
 			}
 			else if(board[9]==' ') {
 				board[9]=computerChar;
+				return;
+			}
+
+			//choosing centre
+			else if(board[5]==' ') {
+				board[5]=computerChar;
 				return;
 			}
 
